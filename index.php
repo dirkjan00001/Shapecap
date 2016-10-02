@@ -1,10 +1,10 @@
 <?php
 session_start();
-$number_of_questions = 2;
-$figure = [	'triangle' 	=> 3,
+$number_of_questions = 2;			// total number of questions. Note that currently only 2 is possible. TODO extend to arbitrary number of questions
+$shape = [	'triangle' 	=> 3,
 						'square' 		=> 4,
 						'pentagon' 	=> 5,
-						'circle' 		=> 15 ];
+						'circle' 		=> 15 ];  // This array is used for the generation of the questions. Two shapes are selected for the questions
 
 if (isset($_POST["submit"])) {
 	$name = $_POST['name'];
@@ -36,13 +36,10 @@ if (isset($_POST["submit"])) {
 	$q = $_SESSION['captcha_questions'];	// questions that were asked
 
 	for ($i=0; $i < $number_of_questions; $i++) {
-		$angles_count = $figure[$q[$i]];
-		$answer = count(array_keys($_SESSION['captcha_angles'], $angles_count));
-		if ($human[$i] !== $answer) {
+		$angles_count = $shape[$q[$i]];		// number of angles in the i th question that was asked to the user
+		$correct_answer = count(array_keys($_SESSION['captcha_angles'], $angles_count));  // the number of shapes in the figure
+		if ($human[$i] !== $correct_answer)
 			$errHuman = 'Your anti-spam is incorrect ';
-			// session_unset();
-			// session_destroy();
-		}
 	}
 
 	// If there are no errors, send the email
@@ -52,10 +49,12 @@ if (isset($_POST["submit"])) {
 		} else {
 			$result='<div class="alert alert-danger">Sorry there was an error sending your message. Please try again later.</div>';
 		}
+		// session_unset();
+		// session_destroy();
 	}
 }
 
-$_SESSION['captcha_questions'] = array_rand($figure, $number_of_questions);
+$_SESSION['captcha_questions'] = array_rand($shape, $number_of_questions);
 
 ?>
 
