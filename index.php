@@ -106,7 +106,7 @@ $_SESSION['captcha_questions'] = array_rand($figure, $number_of_questions);
 							<label for="human" class="col-sm-2 control-label">Anti spam</label>
 							<div id="human" class="col-sm-5">
 								<div class="captcha">
-									<img src="captcha.php" alt="Captcha" class="img-responsive"><img>
+									<img src="shapecap.php" alt="Shapecap Captcha" class="img-responsive"><img>
 								</div>
 							</div>
 							<div class="col-sm-5">
