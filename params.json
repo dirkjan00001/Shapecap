@@ -1,0 +1,6 @@
+{
+  "name": "Shapecap",
+  "tagline": "Simple but effective captcha anti-spam script",
+  "body": "Shapecap\r\n============\r\nSimple but effective captcha generation and validation. Shapecap uses shapes that are easy to recognise for humans but difficult for computers.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
