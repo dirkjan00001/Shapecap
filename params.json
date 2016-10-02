@@ -1,6 +1,6 @@
 {
   "name": "Shapecap",
   "tagline": "Simple but effective captcha anti-spam script",
-  "body": "Shapecap\r\n============\r\nSimple but effective captcha generation and validation. Shapecap uses shapes that are easy to recognise for humans but difficult for computers.\r\n",
+  "body": "Shapecap\r\n============\r\nCaptcha generation and validation to prevent automated scripts from filling in your web forms. Shapecap uses shapes that are easy to recognise for humans but difficult for computers. \r\n\r\n![screenshot](/dirkjan00001/Shapecap/blob/gh-pages/images/Screenshot.png?raw=true)\r\n\r\nRandom shapes such as triangles and circles are drawn and the user is asked to count them. The shapes are not perfectly drawn on purpose to give bots an even harder task to recognise it.\r\n\r\nRequirements\r\n* At least PHP 5\r\n* [GD](http://www.php.net/gd) library",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
