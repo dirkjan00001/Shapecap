@@ -1,6 +1,6 @@
 <?php
 session_start();
-$number_of_questions = 2;			// total number of questions. Note that currently only 2 is possible. TODO extend to arbitrary number of questions
+$number_of_questions = 1;			// total number of questions.
 $shape = [	'triangle' 	=> 3,
 						'square' 		=> 4,
 						'pentagon' 	=> 5,
@@ -12,6 +12,8 @@ if (isset($_POST["submit"])) {
 	$message = $_POST['message'];
 	$human[0] = intval($_POST['human0']);
 	$human[1] = intval($_POST['human1']);
+	$human[2] = intval($_POST['human2']);
+	$human[3] = intval($_POST['human3']);
 	$from = 'Demo Contact Form';
 	$to = 'example@domain.com';
 	$subject = 'Message from Contact Demo ';
@@ -40,6 +42,9 @@ if (isset($_POST["submit"])) {
 		$correct_answer = count(array_keys($_SESSION['captcha_angles'], $angles_count));  // the number of shapes in the figure
 		if ($human[$i] !== $correct_answer)
 			$errHuman = 'Your anti-spam is incorrect ';
+		if (!$human[$i])
+			$errHuman = 'Please fill in the anti-spam field';
+
 	}
 
 	// If there are no errors, send the email
@@ -54,7 +59,9 @@ if (isset($_POST["submit"])) {
 	}
 }
 
-$_SESSION['captcha_questions'] = array_rand($shape, $number_of_questions);
+$keys = array_keys($shape);
+shuffle($keys);
+$_SESSION['captcha_questions'] = $keys;
 
 ?>
 
@@ -108,12 +115,13 @@ $_SESSION['captcha_questions'] = array_rand($shape, $number_of_questions);
 									<img src="shapecap.php" alt="Shapecap Captcha" class="img-responsive"><img>
 								</div>
 							</div>
-							<div class="col-sm-5">
-								<input type="text" class="form-control" id="human0" name="human0" placeholder="Number of <?php echo $_SESSION['captcha_questions'][0]."s"?>" autocomplete="off">
-							</div>
-							<div class="col-sm-5">
-								<input type="text" class="form-control" id="human1" name="human1" placeholder="Number of <?php echo $_SESSION['captcha_questions'][1]."s"?>" autocomplete="off">
-							</div>
+							<?php
+								for ($i=0; $i < $number_of_questions; $i++) {
+									echo '<div class="col-sm-5">
+										<input type="text" class="form-control" id="human'.$i.'" name="human'.$i.'" placeholder="Number of '.$_SESSION['captcha_questions'][$i].'s" autocomplete="off">
+									</div>';
+								}
+							?>
 							<div class="col-sm-10 col-sm-offset-2">
 								<?php echo "<p class='text-danger'>$errHuman</p>";?>
 							</div>
